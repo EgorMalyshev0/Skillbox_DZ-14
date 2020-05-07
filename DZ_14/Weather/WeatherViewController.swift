@@ -12,13 +12,14 @@ class WeatherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let weatherObject = Persistance.shared.retrieveWeather()
-        nameLabel.text = weatherObject.cityName
-        weatherLabel.text = weatherObject.weather
-        tempLabel.text = "\(Int(weatherObject.temp)) ºC"
-        windLabel.text = "\(weatherObject.wind) м/с"
-        feelsLabel.text = "\(Int(weatherObject.feels)) ºC"
-        visibilityLabel.text = "\(weatherObject.visibility)"
+        if let weather = Persistance.shared.currentWeather{
+            nameLabel.text = weather.cityName
+            weatherLabel.text = weather.weather
+            tempLabel.text = "\(Int(weather.temp)) ºC"
+            windLabel.text = "\(weather.wind) м/с"
+            feelsLabel.text = "\(Int(weather.feels)) ºC"
+            visibilityLabel.text = "\(weather.visibility)"
+        }
         
         let loader = WeatherLoader()
         loader.delegate = self
@@ -34,7 +35,7 @@ extension WeatherViewController: WeatherLoaderDelegate {
         windLabel.text = "\(weather.wind) м/с"
         feelsLabel.text = "\(Int(weather.feels)) ºC"
         visibilityLabel.text = "\(weather.visibility)"
-        Persistance.shared.saveWeather(weather)
+        Persistance.shared.currentWeather = weather
     }
 }
     

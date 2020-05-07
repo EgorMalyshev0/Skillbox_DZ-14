@@ -23,6 +23,8 @@ class Persistance {
     // UserDefaults
     private let kNameKey = "Persistance.kNameKey"
     private let kSurnameKey = "Persistance.kSurnameKey"
+    private let kCurrentWeatherKey = "Persistance.kCurrentWeatherKey"
+    
     var name: String? {
         set {UserDefaults.standard.set(newValue, forKey: kNameKey)}
         get {UserDefaults.standard.string(forKey: kNameKey)}
@@ -33,6 +35,21 @@ class Persistance {
         get {UserDefaults.standard.string(forKey: kSurnameKey)}
     }
     
+    var currentWeather: Weather? {
+        set {
+            if let weather = newValue {
+                if let savedData = try? NSKeyedArchiver.archivedData(withRootObject: weather, requiringSecureCoding: false) {
+                    UserDefaults.standard.set(savedData, forKey: kCurrentWeatherKey)
+                }
+            }
+        }
+        get {
+            guard let savedData = UserDefaults.standard.object(forKey: kCurrentWeatherKey) as? Data, let decodedData = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedData) as? Weather else {
+                return nil }
+            return decodedData
+            }
+    }
+
     // Realm
     private let realm = try! Realm()
     
@@ -65,28 +82,6 @@ class Persistance {
             allToDos[index].isCompleted = !allToDos[index].isCompleted
         }
         return allToDos[index].isCompleted
-    }
-    
-    func saveWeather(_ weather: Weather) {
-        let allweather = realm.objects(WeatherObject.self)
-        try! realm.write{
-            realm.delete(allweather)
-        }
-        let weatherObject = WeatherObject()
-        weatherObject.cityName = weather.cityName
-        weatherObject.weather = weather.weather
-        weatherObject.temp = weather.temp
-        weatherObject.feels = weather.feels
-        weatherObject.visibility = weather.visibility
-        weatherObject.wind = weather.wind
-        try! realm.write{
-            realm.add(weatherObject)
-        }
-    }
-    
-    func retrieveWeather() -> WeatherObject {
-        let allweather = realm.objects(WeatherObject.self)
-        return allweather[0]
     }
     
     // CoreData
@@ -152,5 +147,4 @@ class Persistance {
             print("Error")
         }
     }
-    
 }
