@@ -1,20 +1,10 @@
-import Foundation
+import UIKit
 import RealmSwift
 import CoreData
-import UIKit
 
-class ToDoItem: Object{
+class ToDoItem: Object {
     @objc dynamic var name: String = ""
     @objc dynamic var isCompleted: Bool = false
-}
-
-class WeatherObject: Object {
-    @objc dynamic var cityName: String = ""
-    @objc dynamic var weather: String = ""
-    @objc dynamic var temp: Double = 0
-    @objc dynamic var feels: Double = 0
-    @objc dynamic var visibility: Int = 0
-    @objc dynamic var wind: Double = 0
 }
 
 class Persistance {
@@ -24,6 +14,7 @@ class Persistance {
     private let kNameKey = "Persistance.kNameKey"
     private let kSurnameKey = "Persistance.kSurnameKey"
     private let kCurrentWeatherKey = "Persistance.kCurrentWeatherKey"
+    private let kForecastKey = "Persistance.kForecastKey"
     
     var name: String? {
         set {UserDefaults.standard.set(newValue, forKey: kNameKey)}
@@ -35,19 +26,14 @@ class Persistance {
         get {UserDefaults.standard.string(forKey: kSurnameKey)}
     }
     
-    var currentWeather: Weather? {
-        set {
-            if let weather = newValue {
-                if let savedData = try? NSKeyedArchiver.archivedData(withRootObject: weather, requiringSecureCoding: false) {
-                    UserDefaults.standard.set(savedData, forKey: kCurrentWeatherKey)
-                }
-            }
-        }
-        get {
-            guard let savedData = UserDefaults.standard.object(forKey: kCurrentWeatherKey) as? Data, let decodedData = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedData) as? Weather else {
-                return nil }
-            return decodedData
-            }
+    var currentWeather: NSDictionary? {
+        set { UserDefaults.standard.set(newValue, forKey: kCurrentWeatherKey) }
+        get { UserDefaults.standard.object(forKey: kCurrentWeatherKey) as? NSDictionary }
+    }
+    
+    var forecasts: NSDictionary? {
+        set { UserDefaults.standard.set(newValue, forKey: kForecastKey) }
+        get { UserDefaults.standard.object(forKey: kForecastKey) as? NSDictionary }
     }
 
     // Realm

@@ -1,6 +1,6 @@
 import Foundation
 
-class Weather: NSObject, NSCoding {
+class Weather {
     
     let cityName: String
     let weather: String
@@ -29,23 +29,5 @@ class Weather: NSObject, NSCoding {
         self.weather = weather
         self.visibility = visibility
         self.wind = wind
-        
-    }
-    func encode(with coder: NSCoder) {
-        coder.encode(cityName, forKey: "cityName")
-        coder.encode(weather, forKey: "weather")
-        coder.encode(temp, forKey: "temp")
-        coder.encode(feels, forKey: "feels")
-        coder.encode(visibility, forKey: "visibility")
-        coder.encode(wind, forKey: "wind")
-    }
-    
-    required init?(coder: NSCoder) {
-        cityName = coder.decodeObject(forKey: "cityName") as? String ?? ""
-        weather = coder.decodeObject(forKey: "weather") as? String ?? ""
-        temp = coder.decodeObject(forKey: "temp") as? Double ?? 0
-        feels = coder.decodeObject(forKey: "feels") as? Double ?? 0
-        visibility = coder.decodeObject(forKey: "visibility") as? Int ?? 0
-        wind = coder.decodeObject(forKey: "wind") as? Double ?? 0
     }
 }

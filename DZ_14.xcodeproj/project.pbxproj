@@ -25,6 +25,10 @@
 		70D6E1372461539900892178 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D6E1362461539900892178 /* WeatherViewController.swift */; };
 		70D6E13A2461544400892178 /* WeatherLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D6E1392461544400892178 /* WeatherLoader.swift */; };
 		70D6E13C2461547B00892178 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D6E13B2461547B00892178 /* Weather.swift */; };
+		70D6E13E2464877700892178 /* ForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D6E13D2464877700892178 /* ForecastViewController.swift */; };
+		70D6E14124648B3C00892178 /* ForecastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D6E14024648B3C00892178 /* ForecastTableViewCell.swift */; };
+		70D6E14324648C5800892178 /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D6E14224648C5800892178 /* Forecast.swift */; };
+		70D6E14524648D1300892178 /* ForecastLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D6E14424648D1300892178 /* ForecastLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -61,6 +65,10 @@
 		70D6E1362461539900892178 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
 		70D6E1392461544400892178 /* WeatherLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherLoader.swift; sourceTree = "<group>"; };
 		70D6E13B2461547B00892178 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
+		70D6E13D2464877700892178 /* ForecastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewController.swift; sourceTree = "<group>"; };
+		70D6E14024648B3C00892178 /* ForecastTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastTableViewCell.swift; sourceTree = "<group>"; };
+		70D6E14224648C5800892178 /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
+		70D6E14424648D1300892178 /* ForecastLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastLoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,12 +107,13 @@
 				70D6E0DF24561B0000892178 /* AppDelegate.swift */,
 				70D6E0E124561B0000892178 /* SceneDelegate.swift */,
 				70D6E0E324561B0000892178 /* ViewController.swift */,
-				70D6E0E524561B0000892178 /* Main.storyboard */,
 				70D6E1002458844500892178 /* ItemTableViewCell.swift */,
 				70D6E102245896FE00892178 /* RealmViewController.swift */,
 				70D6E12E2460249900892178 /* CoreDataViewController.swift */,
 				70D6E0F324561C3D00892178 /* Persistance.swift */,
 				70D6E138246153AA00892178 /* Weather */,
+				70D6E13F2464878200892178 /* Weather forecast */,
+				70D6E0E524561B0000892178 /* Main.storyboard */,
 				70D6E0E824561B0200892178 /* Assets.xcassets */,
 				70D6E0EA24561B0200892178 /* LaunchScreen.storyboard */,
 				70D6E0ED24561B0200892178 /* Info.plist */,
@@ -130,6 +139,17 @@
 				70D6E13B2461547B00892178 /* Weather.swift */,
 			);
 			path = Weather;
+			sourceTree = "<group>";
+		};
+		70D6E13F2464878200892178 /* Weather forecast */ = {
+			isa = PBXGroup;
+			children = (
+				70D6E13D2464877700892178 /* ForecastViewController.swift */,
+				70D6E14024648B3C00892178 /* ForecastTableViewCell.swift */,
+				70D6E14424648D1300892178 /* ForecastLoader.swift */,
+				70D6E14224648C5800892178 /* Forecast.swift */,
+			);
+			path = "Weather forecast";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -229,12 +249,16 @@
 			files = (
 				70D6E12F2460249900892178 /* CoreDataViewController.swift in Sources */,
 				70D6E1372461539900892178 /* WeatherViewController.swift in Sources */,
+				70D6E14324648C5800892178 /* Forecast.swift in Sources */,
 				70D6E103245896FE00892178 /* RealmViewController.swift in Sources */,
 				70D6E13C2461547B00892178 /* Weather.swift in Sources */,
 				70D6E0E424561B0000892178 /* ViewController.swift in Sources */,
 				70D6E0F424561C3D00892178 /* Persistance.swift in Sources */,
+				70D6E14124648B3C00892178 /* ForecastTableViewCell.swift in Sources */,
 				70D6E0E024561B0000892178 /* AppDelegate.swift in Sources */,
 				70D6E12924601CEC00892178 /* core.xcdatamodeld in Sources */,
+				70D6E14524648D1300892178 /* ForecastLoader.swift in Sources */,
+				70D6E13E2464877700892178 /* ForecastViewController.swift in Sources */,
 				70D6E13A2461544400892178 /* WeatherLoader.swift in Sources */,
 				70D6E1012458844500892178 /* ItemTableViewCell.swift in Sources */,
 				70D6E0E224561B0000892178 /* SceneDelegate.swift in Sources */,

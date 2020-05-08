@@ -12,30 +12,24 @@ class WeatherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let weather = Persistance.shared.currentWeather{
-            nameLabel.text = weather.cityName
-            weatherLabel.text = weather.weather
-            tempLabel.text = "\(Int(weather.temp)) ºC"
-            windLabel.text = "\(weather.wind) м/с"
-            feelsLabel.text = "\(Int(weather.feels)) ºC"
-            visibilityLabel.text = "\(weather.visibility)"
+        if let jsonDict = Persistance.shared.currentWeather {
+            if let weather = Weather(data: jsonDict){
+                self.loadWeather(weather: weather)
+            }
         }
         
-        let loader = WeatherLoader()
-        loader.delegate = self
-        loader.weatherLoader()
+        WeatherLoader().weatherLoader { weather in
+            self.loadWeather(weather: weather)
+        }
     }
-}
-
-extension WeatherViewController: WeatherLoaderDelegate {
-    func loaded(weather: Weather) {
-        nameLabel.text = weather.cityName
-        weatherLabel.text = weather.weather
-        tempLabel.text = "\(Int(weather.temp)) ºC"
-        windLabel.text = "\(weather.wind) м/с"
-        feelsLabel.text = "\(Int(weather.feels)) ºC"
-        visibilityLabel.text = "\(weather.visibility)"
-        Persistance.shared.currentWeather = weather
+    
+    func loadWeather (weather: Weather) {
+        self.nameLabel.text = weather.cityName
+        self.weatherLabel.text = weather.weather
+        self.tempLabel.text = "\(Int(weather.temp)) ºC"
+        self.windLabel.text = "\(weather.wind) м/с"
+        self.feelsLabel.text = "\(Int(weather.feels)) ºC"
+        self.visibilityLabel.text = "\(weather.visibility)"
     }
 }
     
