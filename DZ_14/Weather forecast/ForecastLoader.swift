@@ -9,7 +9,6 @@ class ForecastLoader {
             if let data = data,
                 let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments),
                 let jsonDict = json as? NSDictionary{
-                Persistance.shared.forecasts = jsonDict
                 var forecasts: [Forecast] = []
                 if let forecastArray = jsonDict["list"] as? NSArray{
                     for data in forecastArray where data is NSDictionary {
@@ -19,6 +18,10 @@ class ForecastLoader {
                     }
                     DispatchQueue.main.async {
                         completion(forecasts)
+                        Persistance.shared.removeForecast()
+                        for forecast in forecasts {
+                            Persistance.shared.addWeather(forecast)
+                        }
                     }
                 }
             }

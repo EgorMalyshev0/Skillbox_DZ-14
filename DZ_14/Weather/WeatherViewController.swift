@@ -12,12 +12,9 @@ class WeatherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let jsonDict = Persistance.shared.currentWeather {
-            if let weather = Weather(data: jsonDict){
-                self.loadWeather(weather: weather)
-            }
+        if let weather = Persistance.shared.retrieveWeather() {
+            loadWeather(weather: weather)
         }
-        
         WeatherLoader().weatherLoader { weather in
             self.loadWeather(weather: weather)
         }

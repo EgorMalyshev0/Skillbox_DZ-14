@@ -9,10 +9,11 @@ class WeatherLoader {
             if let data = data,
                 let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments),
                 let jsonDict = json as? NSDictionary {
-                    Persistance.shared.currentWeather = jsonDict
                     if let weather = Weather(data: jsonDict){
                         DispatchQueue.main.async {
                             completion(weather)
+                            Persistance.shared.removeWeather()
+                            Persistance.shared.addWeather(weather)
                         }
                     }
                 }

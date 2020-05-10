@@ -1,15 +1,16 @@
 import Foundation
+import RealmSwift
 
-class Weather {
+class Weather: Object {
     
-    let cityName: String
-    let weather: String
-    let temp: Double
-    let feels: Double
-    let visibility: Int
-    let wind: Double
+    @objc dynamic var cityName: String = ""
+    @objc dynamic var weather: String = ""
+    @objc dynamic var temp: Double = 0
+    @objc dynamic var feels: Double = 0
+    @objc dynamic var visibility: Int = 0
+    @objc dynamic var wind: Double = 0
     
-    init?(data: NSDictionary){
+    convenience init?(data: NSDictionary){
         guard let name = data["name"] as? String,
             let main = data["main"] as? NSDictionary,
             let temp = main["temp"] as? Double,
@@ -23,6 +24,7 @@ class Weather {
             else {
             return nil
         }
+        self.init()
         cityName = name
         self.temp = temp
         self.feels = feels

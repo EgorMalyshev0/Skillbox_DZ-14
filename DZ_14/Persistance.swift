@@ -13,8 +13,6 @@ class Persistance {
     // UserDefaults
     private let kNameKey = "Persistance.kNameKey"
     private let kSurnameKey = "Persistance.kSurnameKey"
-    private let kCurrentWeatherKey = "Persistance.kCurrentWeatherKey"
-    private let kForecastKey = "Persistance.kForecastKey"
     
     var name: String? {
         set {UserDefaults.standard.set(newValue, forKey: kNameKey)}
@@ -24,16 +22,6 @@ class Persistance {
     var surname: String? {
         set {UserDefaults.standard.set(newValue, forKey: kSurnameKey)}
         get {UserDefaults.standard.string(forKey: kSurnameKey)}
-    }
-    
-    var currentWeather: NSDictionary? {
-        set { UserDefaults.standard.set(newValue, forKey: kCurrentWeatherKey) }
-        get { UserDefaults.standard.object(forKey: kCurrentWeatherKey) as? NSDictionary }
-    }
-    
-    var forecasts: NSDictionary? {
-        set { UserDefaults.standard.set(newValue, forKey: kForecastKey) }
-        get { UserDefaults.standard.object(forKey: kForecastKey) as? NSDictionary }
     }
 
     // Realm
@@ -70,8 +58,51 @@ class Persistance {
         return allToDos[index].isCompleted
     }
     
+    func addWeather(_ item: Object) {
+        try! realm.write{
+            realm.add(item)
+        }
+    }
+    
+    func retrieveWeather() -> Weather? {
+        let allWeather = realm.objects(Weather.self)
+        if allWeather.count != 0 {
+            let weather = allWeather[0]
+            return weather
+        } else {
+        return nil
+        }
+    }
+    
+    func retrieveForecasts() -> [Forecast]? {
+        var forecasts: [Forecast] = []
+        let allForecast = realm.objects(Forecast.self)
+        if allForecast.count != 0 {
+            for forecast in allForecast {
+                forecasts.append(forecast)
+            }
+            return forecasts
+        } else {
+        return nil
+        }
+    }
+    
+    func removeWeather() {
+        let allWeather = realm.objects(Weather.self)
+        try! realm.write{
+            realm.delete(allWeather)
+        }
+    }
+    
+    func removeForecast() {
+        let allForecast = realm.objects(Forecast.self)
+        try! realm.write{
+            realm.delete(allForecast)
+        }
+    }
+    
     // CoreData
-    func addData(_ name: String) {
+    func addData(name: String) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedContext = appDelegate.persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "ToDo", in: managedContext)!

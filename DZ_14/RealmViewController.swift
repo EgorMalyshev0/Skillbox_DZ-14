@@ -1,11 +1,3 @@
-//
-//  RealmViewController.swift
-//  DZ_14
-//
-//  Created by Egor Malyshev on 28.04.2020.
-//  Copyright © 2020 Egor Malyshev. All rights reserved.
-//
-
 import UIKit
 
 class RealmViewController: UIViewController {
@@ -18,12 +10,25 @@ class RealmViewController: UIViewController {
     }
     
     @IBAction func addItem(_ sender: Any) {
-        let number = Int.random(in: 1...100)
-        let toDo = ToDoItem()
-        toDo.name = "ToDoItem\(number)"
-        Persistance.shared.addItem(toDo)
-        itemsTableView.reloadData()
+        let alert = UIAlertController(title: "Adding task", message: "Type your task in the textfield", preferredStyle: .alert)
+        let addButton = UIAlertAction(title: "Add", style: .default) { (action) in
+            let textField = alert.textFields?.first
+            if let text = textField?.text {
+                let toDo = ToDoItem()
+                toDo.name = text
+                Persistance.shared.addItem(toDo)
+                self.itemsTableView.reloadData()
+            }
+        }
+        let cancelButton = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
+        alert.addTextField { (textfield) in
+            textfield.placeholder = "Enter task"
+        }
+        alert.addAction(addButton)
+        alert.addAction(cancelButton)
+        present(alert, animated: true, completion: nil)
     }
+    
     @IBAction func editButton(_ sender: Any) {
         itemsTableView.setEditing(!itemsTableView.isEditing, animated: true)
     }

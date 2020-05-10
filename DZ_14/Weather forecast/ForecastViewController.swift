@@ -9,15 +9,7 @@ class ForecastViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let jsonDict = Persistance.shared.forecasts {
-            var forecasts: [Forecast] = []
-            if let forecastArray = jsonDict["list"] as? NSArray{
-                for data in forecastArray where data is NSDictionary {
-                    if let forecast = Forecast(data: data as! NSDictionary){
-                        forecasts.append(forecast)
-                    }
-                }
-            }
+        if let forecasts = Persistance.shared.retrieveForecasts() {
             self.forecasts = forecasts
             self.forecastTableView.reloadData()
         }

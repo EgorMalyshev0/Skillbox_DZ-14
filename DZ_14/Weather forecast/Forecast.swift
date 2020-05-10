@@ -1,12 +1,13 @@
 import Foundation
+import RealmSwift
 
-class Forecast {
+class Forecast: Object {
 
-    @objc dynamic var date: String
-    @objc dynamic var weather: String
-    @objc dynamic var temp: Double
+    @objc dynamic var date: String = ""
+    @objc dynamic var weather: String = ""
+    @objc dynamic var temp: Double = 0
     
-    init?(data: NSDictionary){
+    convenience init?(data: NSDictionary){
         guard let dt = data["dt"] as? Double,
             let weatherArray = data["weather"] as? NSArray,
             let weatherDict = weatherArray[0] as? NSDictionary,
@@ -16,6 +17,7 @@ class Forecast {
             else {
             return nil
         }
+        self.init()
         let date = Date(timeIntervalSince1970: dt)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "E, HH:mm"

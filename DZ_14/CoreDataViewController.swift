@@ -11,9 +11,21 @@ class CoreDataViewController: UIViewController {
     }
     
     @IBAction func addItem(_ sender: Any) {
-        let number = Int.random(in: 1...100)
-        Persistance.shared.addData("Item" + "\(number)")
-        coreDataTableview.reloadData()
+        let alert = UIAlertController(title: "Adding task", message: "Type your task in the textfield", preferredStyle: .alert)
+        let addButton = UIAlertAction(title: "Add", style: .default) { (action) in
+            let textField = alert.textFields?.first
+            if let text = textField?.text {
+                Persistance.shared.addData(name: text)
+                self.coreDataTableview.reloadData()
+            }
+        }
+        let cancelButton = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
+        alert.addTextField { (textfield) in
+            textfield.placeholder = "Enter task"
+        }
+        alert.addAction(addButton)
+        alert.addAction(cancelButton)
+        present(alert, animated: true, completion: nil)
     }
     @IBAction func editButton(_ sender: Any) {
         coreDataTableview.setEditing(!coreDataTableview.isEditing, animated: true)
